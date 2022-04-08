@@ -2,6 +2,7 @@ package iteration
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -24,4 +25,16 @@ func ExampleRepeat() {
 	repeated := Repeat("v", 3)
 	fmt.Println(repeated)
 	// Output: vvv
+}
+
+func TestRepeatv2(t *testing.T) {
+	got := strings.Repeat("go", 3)
+	want := "gogogo"
+
+	if got != want {
+		t.Errorf("got: %q, want: %q", got, want)
+	}
+}
+func BenchmarkRepeatv2(b *testing.B) {
+	strings.Repeat("a", b.N)
 }
