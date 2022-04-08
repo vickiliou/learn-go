@@ -36,5 +36,7 @@ func TestRepeatv2(t *testing.T) {
 	}
 }
 func BenchmarkRepeatv2(b *testing.B) {
-	strings.Repeat("a", b.N)
+	for i := 0; i < b.N; i++ {
+		strings.Repeat("a", b.N)
+	}
 }
