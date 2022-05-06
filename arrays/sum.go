@@ -9,12 +9,17 @@ func Sum(numbers []int) int {
 	return sum
 }
 
-// SumAll takes a varying number of slices and returns the sums of every slice passed in.
-func SumAll(numToSum ...[]int) []int {
+// SumAllTails takes a varying number of slices and returns the sums of every slice passed in, except the first number given.
+func SumAllTails(numToSum ...[]int) []int {
 	var sums []int
 
 	for _, num := range numToSum {
-		sums = append(sums, Sum(num))
+		if len(num) == 0 {
+			sums = append(sums, 0)
+		} else {
+			tail := num[1:]
+			sums = append(sums, Sum(tail))
+		}
 	}
 	return sums
 }
