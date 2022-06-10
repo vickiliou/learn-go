@@ -1,7 +1,14 @@
 package pointers
 
+import "fmt"
+
 // Bitcoin represents a number of Bitcoins.
 type Bitcoin int
+
+// String defines how Bitcoin type is printed
+func (b Bitcoin) String() string {
+	return fmt.Sprintf("%d BTC", b)
+}
 
 // Wallet stores the number of Bitcoin.
 type Wallet struct {
