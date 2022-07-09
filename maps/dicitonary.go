@@ -1,16 +1,20 @@
 package maps
 
-import "errors"
-
 // Dictionary stores some words with their definitions.
 type Dictionary map[string]string
 
-var (
+const (
 	// ErrNotFound means the definition could not be found for the given word.
-	ErrNotFound = errors.New("could not find the word you were looking for")
+	ErrNotFound = DictionaryErr("could not find the word you were looking for")
 	// ErrWordExists means the word that is trying to add already exists.
-	ErrWordExists = errors.New("cannot add word because it already exists")
+	ErrWordExists = DictionaryErr("cannot add word because it already exists")
 )
+
+type DictionaryErr string
+
+func (e DictionaryErr) Error() string {
+	return string(e)
+}
 
 // Search find a word in the dictionary.
 func (d Dictionary) Search(word string) (string, error) {
