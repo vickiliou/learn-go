@@ -1,17 +1,20 @@
 package maps
 
-// Dictionary stores some words with their definitions.
+// Dictionary stores definitions to words.
 type Dictionary map[string]string
 
 const (
 	// ErrNotFound means the definition could not be found for the given word.
 	ErrNotFound = DictionaryErr("could not find the word you were looking for")
+
 	// ErrWordExists means the word that is trying to add already exists.
 	ErrWordExists = DictionaryErr("cannot add word because it already exists")
+
 	// ErrWordDoesNotExist means the word that is trying to update doesn't exist.
 	ErrWordDoesNotExist = DictionaryErr("cannot update word because it does not exist")
 )
 
+// DictionaryErr are errors that can happen when interacting with the dictionary.
 type DictionaryErr string
 
 func (e DictionaryErr) Error() string {
@@ -58,4 +61,9 @@ func (d Dictionary) Update(word, definition string) error {
 	}
 
 	return nil
+}
+
+// Delete removes a word from the dictionary.
+func (d Dictionary) Delete(word string) {
+	delete(d, word)
 }
