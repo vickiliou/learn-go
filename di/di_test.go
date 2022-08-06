@@ -1,4 +1,4 @@
-package di
+package main
 
 import (
 	"bytes"
@@ -7,10 +7,10 @@ import (
 
 func TestGreet(t *testing.T) {
 	buffer := bytes.Buffer{}
-	Greet(&buffer, "Vic")
+	Greet(&buffer, "Gopher")
 
 	got := buffer.String()
-	want := "Hello, Vic"
+	want := "Hello, Gopher"
 
 	if got != want {
 		t.Errorf("got %q want %q", got, want)
