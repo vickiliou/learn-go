@@ -12,15 +12,29 @@ const (
 	countdownStart = 3
 )
 
-// Countdown prints a countdown from 3 and when it reaches zero it will print "Go!"
-func Countdown(out io.Writer) {
+// Sleeper allow you to put delays.
+type Sleeper interface {
+	Sleep()
+}
+
+// DefaultSleeper is an implementation of Sleeper with a predefined delay.
+type DefaultSleeper struct{}
+
+// Sleep will pause execution for the defined Duration.
+func (d *DefaultSleeper) Sleep() {
+	time.Sleep(1 * time.Second)
+}
+
+// Countdown prints a countdown from 3 with a delay between cound provided by Sleeper.
+func Countdown(out io.Writer, sleeper Sleeper) {
 	for i := countdownStart; i > 0; i-- {
 		fmt.Fprintln(out, i)
-		time.Sleep(1 * time.Second)
+		sleeper.Sleep()
 	}
 	fmt.Fprint(out, finalWord)
 }
 
 func main() {
-	Countdown(os.Stdout)
+	sleeper := &DefaultSleeper{}
+	Countdown(os.Stdout, sleeper)
 }
