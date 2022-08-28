@@ -12,17 +12,20 @@ const (
 	countdownStart = 3
 )
 
-// Sleeper allow you to put delays.
+// Sleeper allows you to put delays.
 type Sleeper interface {
 	Sleep()
 }
 
-// DefaultSleeper is an implementation of Sleeper with a predefined delay.
-type DefaultSleeper struct{}
+// ConfigurableSleeper is an implementation of Sleeper with a defined delay.
+type ConfigurableSleeper struct {
+	duration time.Duration
+	sleep    func(time.Duration)
+}
 
 // Sleep will pause execution for the defined Duration.
-func (d *DefaultSleeper) Sleep() {
-	time.Sleep(1 * time.Second)
+func (c *ConfigurableSleeper) Sleep() {
+	c.sleep(c.duration)
 }
 
 // Countdown prints a countdown from 3 with a delay between cound provided by Sleeper.
@@ -35,6 +38,6 @@ func Countdown(out io.Writer, sleeper Sleeper) {
 }
 
 func main() {
-	sleeper := &DefaultSleeper{}
+	sleeper := &ConfigurableSleeper{1 * time.Second, time.Sleep}
 	Countdown(os.Stdout, sleeper)
 }
